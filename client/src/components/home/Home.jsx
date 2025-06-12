@@ -1,6 +1,7 @@
+import Banner from '../banner/Banner.jsx';
 const Home=()=>{
     return(
-        <div>Hello from Home</div>
+        <Banner/>
     )
 }
 export default Home;
