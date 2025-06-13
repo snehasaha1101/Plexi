@@ -1,5 +1,5 @@
-import {Box,styled, FormControl } from '@mui/material';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import {Box,styled, FormControl, InputBase ,Button} from '@mui/material';
+import Add from '@mui/icons-material/AddCircle';
 const Container=styled(Box)`
     margin: 50px 100px
 `
@@ -15,9 +15,11 @@ const CreatePost=()=>{
             <Image src={url} alt="banner"/>
             <FormControl>
                 <label htmlFor='fileInput'>
-                    Input
+                    <Add fontsize="large" color="action"/>
                 </label>
-                <input type="file" />
+                <input type="file" id="fileInput" style={{display:'none'}}/>
+                <InputBase placeholder='Title'/>
+                <Button variant="contained">Publish</Button>
             </FormControl>
         </Container>
     )
