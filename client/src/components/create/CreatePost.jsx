@@ -1,7 +1,10 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useContext} from 'react';
 import {Box,styled, FormControl, InputBase ,Button, TextareaAutosize} from '@mui/material';
 import Add from '@mui/icons-material/AddCircle';
-import { categories } from '../../constants/data';
+import {categories} from '../../constants/data.js';
+import {useLocation,useNavigate} from 'react-router-dom';
+import {DataContext} from '../../context/DataProvider';
+import { API } from '../../service/api.js';
 const Container=styled(Box)`
     margin: 50px 100px
 `
@@ -39,26 +42,65 @@ const initialPost={
     createdDate: new Date()
 }
 const CreatePost=()=>{
-    const url='https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
     const [post,setPost] = useState(initialPost);
+    const [file,setFile]=useState('');
+    const {account}=useContext(DataContext);
+    const location=useLocation();
+    const navigate=useNavigate();
+    const url=post.picture?post.picture:'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
+
     useEffect(()=>{
-        const getImage=()=>{
-            
+        const getImage=async()=>{
+            if(file){
+                const data=new FormData();
+                data.append("name",file.name);
+                data.append("file",file);
+
+                for (let pair of data.entries()) {
+                console.log(`${pair[0]}:`, pair[1]);
+            }
+
+                const response=await API.uploadFile(data);
+                post.picture=response.data;
+            }
         }
-    },[])
+        getImage();
+        post.categories=location.search?.split('=')[1]||'All';
+        post.username=account.username;
+       
+
+    },[file])
     const handleChange=(e)=>{
         setPost({...post,[e.target.name]: e.target.value})
+    }
+    const savePost=async()=>{
+        let response=await API.createPost(post);
+        if(response.isSuccess){
+            navigate('/');
+        }
     }
     return(
         <Container>
             <Image src={url} alt="banner"/>
             <StyledFormControl>
                 <label htmlFor='fileInput'>
-                    <Add fontsize="large" color="action"/>
+                    <Add fontSize="large" color="action"/>
                 </label>
-                <input type="file" id="fileInput" style={{display:'none'}}/>
-                <InputTextField placeholder='Title' on Change={(e)=>handleChange(e)} name="title"/>
-                <Button variant="contained">Publish</Button>
+                <input type="file" 
+                id="fileInput" 
+                style={{display:'none'}}
+                onChange={(e) => {
+  const selectedFile = e.target.files[0];
+  if (selectedFile) {
+    console.log("📂 File selected:", selectedFile);
+    console.log("🧾 Selected file type:", selectedFile.type); // 👈 This logs MIME type
+    setFile(selectedFile);
+  }
+}}
+
+                />
+                <InputTextField placeholder='Title' onChange={(e)=>handleChange(e)} name="title"/>
+                <Button variant="contained" onClick={()=>savePost()}>Publish</Button>
             </StyledFormControl>
             <Textarea
                 minRows={5}

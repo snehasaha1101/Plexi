@@ -2,7 +2,7 @@
 import { Grid } from '@mui/material';
 import Banner from '../banner/Banner.jsx';
 import Categories from './Categories.jsx';
-
+import Posts from './post/Posts.jsx';
 const Home=()=>{
     return(
         <>
@@ -12,7 +12,7 @@ const Home=()=>{
             <Categories/>
             </Grid>
             <Grid container item xs={12} sm={10} lg={10}>
-                Posts
+                <Posts/>
             </Grid>
         </Grid>
        </>

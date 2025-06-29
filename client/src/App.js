@@ -6,6 +6,9 @@ import Home from './components/home/Home.jsx';
 import Header from './components/header/Header.jsx'
 import CreatePost from './components/create/CreatePost.jsx';
 
+
+
+
 const PrivateRoute=({isAuthenticated, ...props})=>{
   return isAuthenticated?
   <>

@@ -1,5 +1,5 @@
 import {Button, Table, TableCell, TableRow, TableHead, TableBody, styled} from '@mui/material';
-import {Link} from 'react-router-dom'
+import {Link,useSearchParams} from 'react-router-dom'
 import {categories} from '../../constants/data';
 const StyledTable=styled(Table)`
     border: 1px solid rgba(224, 224, 224, 1);
@@ -10,17 +10,25 @@ const StyledButton=styled(Button)`
     background: #6495ED;
     color: #fff;
 `
+const StyledLink=styled(Link)`
+    text-decoration:none;
+    color:inherit;
+`
 const Categories=()=>{
+    const [searchParams]=useSearchParams();
+    const category=searchParams.get('category');//to store the cotegory in which you are blogging
     return(
         <>
-            <Link to='/create' style={{textDecoration: 'none'}}>
+            <StyledLink to={`/create?category=${category || ''}`}>
                 <StyledButton variant="contained">Create Blog</StyledButton>
-            </Link>
+            </StyledLink>
             <StyledTable>
                 <TableHead>
                     <TableRow>
                         <TableCell>
-                            All Categories
+                            <StyledLink to='/'>
+                                All Categories
+                            </StyledLink>
                         </TableCell>
                     </TableRow>
                 </TableHead>
@@ -29,7 +37,9 @@ const Categories=()=>{
                         categories.map(category=>(
                             <TableRow key={category.id}>
                          <TableCell>
+                            <StyledLink to={`/?category=${category.type}`}>
                             {category.type}
+                            </StyledLink>
                         </TableCell>
                     </TableRow>
                         ))
