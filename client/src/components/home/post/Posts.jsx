@@ -1,12 +1,15 @@
 import {useEffect, useState} from 'react';
 import {Box, Grid } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
 import { API } from '../../../service/api.js';
 import Post from './Post.jsx'; 
 const Posts=()=>{
     const [posts,setposts]=useState([]);
+    const [searchParams] = useSearchParams();
+    const category = searchParams.get('category'); 
     useEffect(()=>{
         const fetchData = async () => {
-            let response=await API.getAllPosts();
+            let response=await API.getAllPosts({category: category || ''});
             if(response.isSuccess){
                 setposts(response.data);
             } else {
@@ -14,7 +17,7 @@ const Posts=()=>{
             }
         }
         fetchData();
-    },[]);
+    },[category]);
     /*return (
         <>
         {

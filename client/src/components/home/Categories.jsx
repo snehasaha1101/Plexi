@@ -37,7 +37,7 @@ const Categories=()=>{
                         categories.map(category=>(
                             <TableRow key={category.id}>
                          <TableCell>
-                            <StyledLink to={`/?category=${category.type}`}>
+                            <StyledLink to={`/?category=${encodeURIComponent(category.type)}`}>
                             {category.type}
                             </StyledLink>
                         </TableCell>

@@ -50,26 +50,26 @@ const CreatePost=()=>{
     const url=post.picture?post.picture:'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
 
     useEffect(()=>{
-        const getImage=async()=>{
-            if(file){
-                const data=new FormData();
-                data.append("name",file.name);
-                data.append("file",file);
+    const getImage=async()=>{
+        if(file){
+            const data=new FormData();
+            data.append("name",file.name);
+            data.append("file",file);
 
-                for (let pair of data.entries()) {
+            for (let pair of data.entries()) {
                 console.log(`${pair[0]}:`, pair[1]);
             }
 
-                const response=await API.uploadFile(data);
-                post.picture=response.data;
-            }
+            const response=await API.uploadFile(data);
+            post.picture=response.data;
         }
-        getImage();
-        post.categories=location.search?.split('=')[1]||'All';
-        post.username=account.username;
-       
-
-    },[file])
+    }
+    getImage();
+    
+    const rawCategory = location.search?.split('=')[1] || 'All';
+    post.categories = decodeURIComponent(rawCategory);
+    post.username = account.username;
+},[file])
     const handleChange=(e)=>{
         setPost({...post,[e.target.name]: e.target.value})
     }

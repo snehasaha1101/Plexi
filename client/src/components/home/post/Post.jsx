@@ -1,6 +1,6 @@
 
 import {Box, Typography, styled} from '@mui/material';
-
+import {addElipse} from '../../../utils/common-utils.js';
 const Container=styled(Box)`
     border: 1px solid #d3cede;
     border-radius: 10px;
@@ -32,14 +32,19 @@ const Heading=styled(Typography)`
     font-size: 18px;
     font-weight: 600;
 `
+const Details=styled(Typography)`
+    font-size: 14px;
+    word-break: break-word;
+    margin: 5px 0;
+`;
 const Post=({post})=>{
     return(
         <Container>
             <Image src={post.picture} alt="blog" />
             <Text>{decodeURIComponent(post.categories)}</Text>
-            <Heading>{post.title}</Heading>
+            <Heading>{addElipse(post.title,20)}</Heading>
             <Typography>Author: {post.username}</Typography>
-           {/* <Typography>{post.description}</Typography> */}
+           <Details>{addElipse(post.description,100)}</Details>
         </Container>
     )
 }

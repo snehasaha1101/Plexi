@@ -1,4 +1,5 @@
 
+import { categories } from '../../client/src/constants/data.js';
 import Post from '../model/post.js'
 /*export const createPost=async(request,response)=>{
     try{
@@ -23,8 +24,14 @@ export const createPost = async (request, response) => {
     }
 }
 export const getAllPosts = async (request, response) => {
-    try {
-        const posts = await Post.find({});
+    let category = request.query.category || '';
+    let posts;
+    try{
+        if (category) {
+            posts = await Post.find({categories: category});
+        }else{
+            posts=await Post.find({});
+        }
         return response.status(200).json(posts);
     } catch (error) {
         return response.status(500).json({mssg:error.message})
