@@ -81,9 +81,13 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
                 Accept: isFormData ? "application/json, form-data" : "application/json",
                 "Content-Type": isFormData ? "multipart/form-data" : "application/json"
             };
+              let url = value.url;
+            if (key === "getPostById" && body) {
+                url = `${value.url}/${body}`;
+            }
             const response = await axiosInstance({
                 method: value.method,
-                url: value.url,
+                url: url,
                 data: body,
                 responseType: value.responseType,
                 headers,

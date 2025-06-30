@@ -5,7 +5,7 @@ import DataProvider from './context/DataProvider.jsx';
 import Home from './components/home/Home.jsx';
 import Header from './components/header/Header.jsx'
 import CreatePost from './components/create/CreatePost.jsx';
-
+import DetailView from './components/details/DetailView.jsx';
 
 
 
@@ -31,6 +31,9 @@ function App() {
           </Route>
           <Route path='/create' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
           <Route path='/create' element={<CreatePost/>}/>
+          </Route>
+          <Route path='/details/:id' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
+          <Route path='/details/:id' element={<DetailView/>}/>
           </Route>
         </Routes>
     </div>
