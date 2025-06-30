@@ -5,9 +5,12 @@ import {API} from '../../service/api.js';
 import { DataContext } from '../../context/DataProvider.jsx';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-const Container=styled(Box)`
-    margin: 50px 100px;
-`
+const Container=styled(Box)(({theme})=>({
+    margin: '50px 100px',
+    [theme.breakpoints.down('md')]: {
+        margin: '50px 20px',
+    },
+}));
 const Image=styled('img')({
     width: '100%',
     height: '50vh',

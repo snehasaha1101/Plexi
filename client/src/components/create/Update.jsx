@@ -5,9 +5,12 @@ import Add from '@mui/icons-material/AddCircle';
 import {useLocation,useNavigate,useParams} from 'react-router-dom';
 import {DataContext} from '../../context/DataProvider';
 import { API } from '../../service/api.js';
-const Container=styled(Box)`
-    margin: 50px 100px
-`
+const Container=styled(Box)(({theme})=>({
+    margin: '50px 100px',
+    [theme.breakpoints.down('md')]: {
+        margin: '50px 20px',
+    },
+}));
 const Image=styled('img')({
     width: '100%',
     height: '50vh',
