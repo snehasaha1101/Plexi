@@ -1,6 +1,6 @@
 import { useEffect,useState,useContext } from 'react';
 import{Box,Typography,styled} from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams,Link,useNavigate } from 'react-router-dom';
 import {API} from '../../service/api.js';
 import { DataContext } from '../../context/DataProvider.jsx';
 import EditIcon from '@mui/icons-material/Edit';
@@ -43,6 +43,7 @@ const DetailView=()=>{
     const [post,setPost]=useState({});
     const {id}=useParams();
     const {account}=useContext(DataContext);
+    const navigate=useNavigate();
     useEffect(()=>{
         const fetchData=async()=>{
            let response = await API.getPostById(id);
@@ -55,6 +56,13 @@ const DetailView=()=>{
         }
         fetchData();
     },[])
+
+   const deleteBlog = async () => {
+    let response = await API.deletePost(post._id);
+    if (response.isSuccess) {
+        navigate('/');
+    }
+}
     return(
         <Container>
             <img src={post.picture} alt="post" style={{width:'100%',height:'50vh',objectFit:'cover'}}/>
@@ -62,8 +70,10 @@ const DetailView=()=>{
                 {
                     account.username === post.username &&
                     <>
-                         <Edit color="primary" style={{cursor: 'pointer'}}/>
-                        <Delete color="error" style={{cursor: 'pointer'}}/>
+                         <Link to={`/update/${post._id}`}>
+                            <Edit color="primary" style={{cursor: 'pointer'}}/>
+                         </Link>
+                        <Delete onClick={()=>deleteBlog()}color="error" style={{cursor: 'pointer'}}/>
                     </>
                 }
             

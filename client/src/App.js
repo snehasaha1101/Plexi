@@ -6,7 +6,7 @@ import Home from './components/home/Home.jsx';
 import Header from './components/header/Header.jsx'
 import CreatePost from './components/create/CreatePost.jsx';
 import DetailView from './components/details/DetailView.jsx';
-
+import Update from './components/create/Update.jsx';
 
 
 const PrivateRoute=({isAuthenticated, ...props})=>{
@@ -34,6 +34,9 @@ function App() {
           </Route>
           <Route path='/details/:id' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
           <Route path='/details/:id' element={<DetailView/>}/>
+          </Route>
+          <Route path='/update/:id' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
+          <Route path='/update/:id' element={<Update/>}/>
           </Route>
         </Routes>
     </div>

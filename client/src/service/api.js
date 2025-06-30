@@ -73,7 +73,7 @@ const processError=(error)=>{
 const API={};
 
 for (const [key, value] of Object.entries(SERVICE_URLS)) {
-    API[key] = async (body, showUploadProgress, showDownloadProgress) => {
+    API[key] = async (body,body2, showUploadProgress, showDownloadProgress) => {
         try {
              const isFormData = body instanceof FormData;
               const headers = {
@@ -82,13 +82,20 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
                 "Content-Type": isFormData ? "multipart/form-data" : "application/json"
             };
               let url = value.url;
+              if (key === "deletePost" && body) {
+                url = `${value.url}/${body}`;
+             }
+               if (key === "updatePost" && body && body2) {
+                url = `${value.url}/${body}`;
+                body = body2;
+            }
             if (key === "getPostById" && body) {
                 url = `${value.url}/${body}`;
             }
             const response = await axiosInstance({
                 method: value.method,
                 url: url,
-                data: body,
+                data: value.method==='DELETE'?{}:body,
                 responseType: value.responseType,
                 headers,
 
