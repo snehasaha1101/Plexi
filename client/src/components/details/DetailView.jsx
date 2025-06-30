@@ -16,8 +16,9 @@ const Image=styled('img')({
 const Heading=styled(Typography)`
     font-size: 24px;
     font-weight: 600;
-    margin: 35px 0;
+    margin: 50px 0;
     text-align: center;
+    word-break: break-word;
 `
 const Edit=styled(EditIcon)`
     margin: 5px;
@@ -31,7 +32,13 @@ const Delete=styled(DeleteIcon)`
     border: 1px solid  #878787;  
     border-radius: 50%;
 `
-
+const Author=styled(Typography)`
+    font-size: 14px;
+    color:rgba(187, 1, 171, 0.73);
+    margin: 5px 0;
+    text-align: right;
+    text-style: italic;
+`
 const DetailView=()=>{
     const [post,setPost]=useState({});
     const {id}=useParams();
@@ -51,7 +58,7 @@ const DetailView=()=>{
     return(
         <Container>
             <img src={post.picture} alt="post" style={{width:'100%',height:'50vh',objectFit:'cover'}}/>
-            <Box style={{float: 'right', margin: '20px'}}>
+            <Box style={{float: 'right', margin: '10px'}}>
                 {
                     account.username === post.username &&
                     <>
@@ -59,12 +66,12 @@ const DetailView=()=>{
                         <Delete color="error" style={{cursor: 'pointer'}}/>
                     </>
                 }
-               
+            
             </Box>
             <Heading>{post.title}</Heading>
             <Box>
-                <Typography>{post.username}</Typography>
-                <Typography>{new Date(post.createdDate).toDateString()}</Typography>
+                <Author>~{post.username}</Author>
+                <Author>{new Date(post.createdDate).toDateString()}</Author>
             </Box>
             <Typography>{post.description}</Typography>
         </Container>
