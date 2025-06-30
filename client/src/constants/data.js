@@ -5,4 +5,5 @@ export const categories = [
     {id: 4, type: 'Development'},
     {id: 5, type: 'Data Structures and Algorithms'},
     {id: 6, type: 'Artificial Intelligence/ Machine Learning'},
+    {id: 7, type: 'Others'},
 ]

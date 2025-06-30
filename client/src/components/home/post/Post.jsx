@@ -6,8 +6,9 @@ const Container=styled(Box)`
     border-radius: 10px;
     margin: 10px 0;
     width: 100%;
-    height: 350px;
-    max-width: 320px;
+    height: 380px;
+    width: 300px;
+    max-width: 350px;
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -37,14 +38,22 @@ const Details=styled(Typography)`
     word-break: break-word;
     margin: 5px 0;
 `;
+const StyledDate=styled(Typography)`
+    font-size: 14px;
+    color: #878787;
+    margin-top: auto;
+    padding: 5px;
+`;
+
 const Post=({post})=>{
     return(
         <Container>
             <Image src={post.picture} alt="blog" />
             <Text>{decodeURIComponent(post.categories)}</Text>
-            <Heading>{addElipse(post.title,20)}</Heading>
+            <Heading>{addElipse(post.title,40)}</Heading>
             <Typography>Author: {post.username}</Typography>
-           <Details>{addElipse(post.description,100)}</Details>
+           <Details>{addElipse(post.description,40)}</Details>
+           <StyledDate>{new Date(post.createdDate).toDateString()}</StyledDate>
         </Container>
     )
 }
