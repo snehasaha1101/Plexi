@@ -14,6 +14,16 @@ app.use(cors({
     ],
     credentials: true
 }));
+app.options('*', cors({
+    origin: [
+        'https://plexi.onrender.com',
+        'https://plexi-pl.vercel.app'
+    ],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 /*app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true
