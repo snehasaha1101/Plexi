@@ -8,7 +8,10 @@ import Router from './routes/route.js';
 dotenv.config();
 const app=express();
 app.use(cors({
-    origin: 'https://plexi.onrender.com',
+    origin: [
+        'https://plexi.onrender.com',
+        'https://plexi-pl.vercel.app'
+    ],
     credentials: true
 }));
 /*app.use(cors({
