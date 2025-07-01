@@ -7,7 +7,10 @@ import Router from './routes/route.js';
 
 dotenv.config();
 const app=express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://plexi.onrender.com',
+    credentials: true
+}));
 /*app.use(cors({
     origin: 'http://localhost:3000',
     credentials: true

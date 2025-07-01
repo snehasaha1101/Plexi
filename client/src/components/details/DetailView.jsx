@@ -5,6 +5,7 @@ import {API} from '../../service/api.js';
 import { DataContext } from '../../context/DataProvider.jsx';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import {Comments} from './comments/Comments.jsx';
 const Container=styled(Box)(({theme})=>({
     margin: '50px 100px',
     [theme.breakpoints.down('md')]: {
@@ -87,6 +88,7 @@ const DetailView=()=>{
                 <Author>{new Date(post.createdDate).toDateString()}</Author>
             </Box>
             <Typography>{post.description}</Typography>
+            <Comments post={post}/>
         </Container>
     );
 }
