@@ -26,9 +26,8 @@ const storage =new GridFsStorage({
         console.log("📨 Uploaded file MIME type:", file.mimetype);
 
         if(match.indexOf(file.mimetype)===-1){
-        //return `${Date.now()}-blog-${file.originalname}`;
-        
-    return Promise.reject(new Error('Only PNG and JPG files are allowed!'));
+        console.error("❌ Rejected file:", file.originalname);
+      return null; 
 
 
         }
