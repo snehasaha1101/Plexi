@@ -14,10 +14,10 @@ const Heading= styled(Typography)`
     color: #FFFFFF;
     line-height: 1
 `;
-const SubHeading=styled(Typography)`
+/*const SubHeading=styled(Typography)`
     font-size: 20px;
     background: #FFFFFF
-`
+`*/
 const Tagline = styled(Typography)`
     position: absolute;
     top: 55%;
